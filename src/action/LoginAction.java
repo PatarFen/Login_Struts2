@@ -9,20 +9,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import service.AccountValidationService;
 
 public class LoginAction {
 	
 	private String user;
 	private String password;
-	private ResultSet ps;
-	private boolean result;
+	//private ResultSet ps;
+	//private boolean result;
 	private String message;
 	
-	public static Connection conn() throws Exception {
-		Class.forName("com.mysql.jdbc.Driver");
-		return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/assignment", "root", "1234567890");
+	//public static Connection conn() throws Exception {
+		//Class.forName("com.mysql.jdbc.Driver");
+		//return DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/assignment", "root", "1234567890");
 		
-	}
+	//}
 	
 	public String getUser() {
 		return user;
@@ -50,15 +51,16 @@ public class LoginAction {
 	
     public String execute() {
     	
-    	try {
-    	ps = conn().createStatement().executeQuery("SELECT user, password FROM accounts WHERE user='" + user+ "' \r\n" + 
-    			"AND password= '"+password+"'");
-        result = ps.next();
-    	System.out.println("pass the DB" + ps.next());
-    	}catch(Exception e){
-    		e.printStackTrace();
-    }
-    	if (result) {
+    	//try {
+    	//ps = conn().createStatement().executeQuery("SELECT user, password FROM accounts WHERE user='" + user+ "' \r\n" + 
+    			//"AND password= '"+password+"'");
+        //result = ps.next();
+    	//System.out.println("pass the DB" + ps.next());
+    	//}catch(Exception e){
+    		//e.printStackTrace();
+    //}
+    	AccountValidationService accountValidationService = new AccountValidationService();
+    	if (accountValidationService.vildateAccount(getUser(), getPassword())) {
     		return "success";
     	}else {
     		setMessage("Login Fail, please try again");
