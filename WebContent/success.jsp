@@ -9,6 +9,5 @@
 </head>
 <body>
 Successful Login!
-<s:property value = "bestTutorialSite"/>
 </body>
 </html>
